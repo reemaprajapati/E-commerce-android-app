@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+<item
+    android:id="@+id/categories"
+    android:title="Categories"
+    >
+    <menu>
+    <item
+
+        android:id="@+id/home"
+        android:title="Home">
+    </item>
+    <item
+        android:id="@+id/clothing"
+        android:title="Clothing">
+    </item>
+    <item
+        android:id="@+id/footwear"
+        android:title="Foot Wear">
+    </item>
+
+    <item
+        android:id="@+id/bagsandwallets"
+        android:title="Bags and Wallet">
+    </item>
+
+    <item
+        android:id="@+id/jewellery"
+        android:title="Jewellery">
+    </item>
+
+
+    <item
+        android:id="@+id/beautycare"
+        android:title="Beauty Care">
+    </item>
+
+    <item
+        android:id="@+id/accessories"
+        android:title="Accessories">
+    </item>
+
+        <item
+            android:id="@+id/womensgrooming"
+            android:title="Women's Grooming">
+        </item>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/subheading"
+        android:title="More">
+        <menu>
+            <item
+                android:id="@+id/account"
+                android:title="Account"
+                />
+            <item
+                android:id="@+id/settings"
+                android:title="Settings"
+                />
+
+        </menu>
+    </item>
+
+
+
+
+
+</menu>
