@@ -50,15 +50,14 @@ public class BestSellersAdapter extends RecyclerView.Adapter<BestSellersAdapter.
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView newarrival_name,newarrival_price;
+        TextView newarrival_name,
+                 newarrival_price;
         ImageView newarrival_image;
         public MyViewHolder(View itemView) {
             super(itemView);
-            newarrival_name=(TextView)itemView.findViewById(R.id.newarrival_name);
-            newarrival_price=(TextView)itemView.findViewById(R.id.newarrival_price);
-            newarrival_image=(ImageView) itemView.findViewById(R.id.newarrival_image);
-
-
+            newarrival_name=(TextView)itemView.findViewById(R.id.tv_name);
+            newarrival_price=(TextView)itemView.findViewById(R.id.tv_price);
+            newarrival_image=(ImageView) itemView.findViewById(R.id.iv_image);
         }
 
 

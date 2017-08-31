@@ -10,15 +10,14 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.otimus.ecommerceapp.R;
-import com.example.otimus.ecommerceapp.adapters.BestSellersAdapter;
-import com.example.otimus.ecommerceapp.adapters.NewArrivalAdapter;
-import com.example.otimus.ecommerceapp.models.ItemBestSellers;
-import com.example.otimus.ecommerceapp.models.ItemNewArrivals;
+import com.example.otimus.ecommerceapp.adapters.GridAdapter;
 import com.example.otimus.ecommerceapp.models.Products;
 import com.example.otimus.ecommerceapp.rest.ApiClient;
 import com.example.otimus.ecommerceapp.rest.ApiInterface;
@@ -34,13 +33,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
-    List<ItemNewArrivals> newArrivalsList=new ArrayList<>();
-    RecyclerView recycView;
-    ApiInterface apiInterface;
-    Call<List<Products>> call;
-
-
-
+    List<Products> newArrivalsList,bestSellersList,winterSaleList;
+    RecyclerView recNewArrivals;
+    GridAdapter gridAdapter;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -82,141 +77,142 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 super.onDrawerClosed(drawerView);
             }
         };
-
-
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
-        //recycler view for new arrivals
-        recycView=(RecyclerView)findViewById(R.id.rec_newarrivals);
-        recycView.setHasFixedSize(true);
-        GridLayoutManager gridLayoutManager1=new GridLayoutManager(this,5,1,false);//5 columns, 1 horizental layout
-        recycView.setLayoutManager(gridLayoutManager1);
-        recycView.setItemAnimator(new DefaultItemAnimator());
-
-
-        newArrivalsList= getNewArrivals();
-        NewArrivalAdapter newArrivalAdapter = new NewArrivalAdapter(newArrivalsList, new NewArrivalAdapter.OnItemClickListener(){
-
-
+        //recyclerview for new arrivals
+        recNewArrivals =(RecyclerView)findViewById(R.id.rec_newarrivals);
+        recNewArrivals.setHasFixedSize(true);
+        GridLayoutManager gridLayoutManager1=new GridLayoutManager(this,4,1,false);//5 columns, 1 horizental layout
+        recNewArrivals.setLayoutManager(gridLayoutManager1);
+        recNewArrivals.setItemAnimator(new DefaultItemAnimator());
+        newArrivalsList= new ArrayList<>();
+        gridAdapter=new GridAdapter(newArrivalsList, new GridAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(ItemNewArrivals item) {
-//                Toast.makeText(MainActivity.this, "hi" , Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(getApplicationContext(),LadiesWearActivity.class);
+            public void onItemClick(Products item) {
+                Intent intent=new Intent(getApplicationContext(), DetailActivity.class);
                 intent.putExtra("data",item);
                 startActivity(intent);
             }
-        });
-        recycView.setAdapter(newArrivalAdapter);
+        },getApplicationContext());
+        recNewArrivals.setAdapter(gridAdapter);
+        setNewArrivals();
 
 
         //recycler view for bestsellers
         RecyclerView recyclerView=(RecyclerView)findViewById(R.id.rec_bestsellers);
         recyclerView.setHasFixedSize(true);
-        GridLayoutManager gridLayoutManager=new GridLayoutManager(this,5,1,false);//5 columns, 1 horizental layout
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(this,4,1,false);//5 columns, 1 horizental layout
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        List<ItemBestSellers> bestSellersList=new ArrayList<>();
-        bestSellersList=getBestSellers();
-        BestSellersAdapter bestSellersAdapter = new BestSellersAdapter(bestSellersList, new BestSellersAdapter.OnItemClickListener() {
+       bestSellersList=new ArrayList<>();
+        gridAdapter = new GridAdapter(bestSellersList, new GridAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(ItemBestSellers item) {
-                Intent intent=new Intent(getApplicationContext(), BestSellerDetail.class);
+            public void onItemClick(Products item) {
+                Intent intent=new Intent(getApplicationContext(), DetailActivity.class);
                 intent.putExtra("data",item);
                 startActivity(intent);
-
             }
-        });
-        recyclerView.setAdapter(bestSellersAdapter);
+        },getApplicationContext());
+        recyclerView.setAdapter(gridAdapter);
+        setBestSellers();
 
-
-
-        //recylerview for winter sale
+//        //recylerview for winter sale
         RecyclerView recView=(RecyclerView)findViewById(R.id.rec_wintersale);
         recView.setHasFixedSize(true);
-        GridLayoutManager layoutmanager= new GridLayoutManager(this,11,1,false);
+        GridLayoutManager layoutmanager= new GridLayoutManager(this,3,1,false);
         recView.setLayoutManager(layoutmanager);
         recView.setItemAnimator(new DefaultItemAnimator());
-        bestSellersList=new ArrayList<>();
-        bestSellersList=getDataWinter();
-        bestSellersAdapter = new BestSellersAdapter(bestSellersList, new BestSellersAdapter.OnItemClickListener() {
+        winterSaleList=new ArrayList<>();
+        gridAdapter = new GridAdapter(winterSaleList, new GridAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(ItemBestSellers item) {
-                Intent intent=new Intent(getApplicationContext(), BestSellerDetail.class);
+            public void onItemClick(Products item) {
+                Intent intent=new Intent(getApplicationContext(), DetailActivity.class);
+                intent.putExtra("data",item);
                 startActivity(intent);
             }
 
+        },getApplicationContext());
+        recView.setAdapter(gridAdapter);
+        setWinterSales();
+    }
+
+    public void setNewArrivals(){
+        ApiInterface apiInterface= ApiClient.getClient().create(ApiInterface.class);
+        Call<List<Products>> call=apiInterface.getProducts(8);
+        call.enqueue(new Callback<List<Products>>() {
+            @Override
+            public void onResponse(Call<List<Products>> call, Response<List<Products>> response) {
+                newArrivalsList.addAll(response.body());
+                gridAdapter.notifyDataSetChanged();
+                Log.d("newarrivals",newArrivalsList.get(1).getProductName());
+            }
+
+            @Override
+            public void onFailure(Call<List<Products>> call, Throwable t) {
+                Log.d("hi",t.toString());
+                Toast.makeText(MainActivity.this, t.toString(), Toast.LENGTH_SHORT).show();
+
+            }
         });
-        recView.setAdapter(bestSellersAdapter);
     }
 
-    public List<Products> getBestSellers(){
-        List<Products> bestSellersList=new ArrayList<>();
-        apiInterface= ApiClient.getClient().create(ApiInterface.class);
-        call =apiInterface.getProducts(9);
-        display(call);
-//        bestSellersList.add(new ItemBestSellers(R.drawable.blacktops,"Black Tops","Rs.1120/-"));
-//        bestSellersList.add(new ItemBestSellers(R.drawable.bluedarkshoemen,"Blue Dark Shoe","Rs.1800/-"));
-//        bestSellersList.add(new ItemBestSellers(R.drawable.huaweigr3,"Huawei GR3","Rs. 28000/-"));
-//        bestSellersList.add(new ItemBestSellers(R.drawable.bluesaree,"Blue Saree Floral","Rs.5000/-"));
-//        bestSellersList.add(new ItemBestSellers(R.drawable.hppendrive,"hp pendrive 32GB","Rs.1500/-"));
+    public void setBestSellers(){
+        ApiInterface apiInterface= ApiClient.getClient().create(ApiInterface.class);
+        Call<List<Products>> call=apiInterface.getProducts(9);
+        call.enqueue(new Callback<List<Products>>() {
+            @Override
+            public void onResponse(Call<List<Products>> call, Response<List<Products>> response) {
+                bestSellersList.addAll(response.body());
+                gridAdapter.notifyDataSetChanged();
+                Log.d("newarrivals",bestSellersList.get(1).getProductName());
+            }
 
+            @Override
+            public void onFailure(Call<List<Products>> call, Throwable t) {
+                Log.d("hi",t.toString());
+                Toast.makeText(MainActivity.this, t.toString(), Toast.LENGTH_SHORT).show();
 
-        return bestSellersList;
+            }
+        });
     }
 
-    public List<ItemBestSellers> getDataWinter(){
-        List<ItemBestSellers> bestSellersList=new ArrayList<>();
-        bestSellersList.add(new ItemBestSellers(R.drawable.bag,"Bag","Rs.1120/-"));
-        bestSellersList.add(new ItemBestSellers(R.drawable.blackgolden,"Black Golden","Rs.1120/-"));
-        bestSellersList.add(new ItemBestSellers(R.drawable.bossiniwhite,"Bossini White","Rs.1120/-"));
-        bestSellersList.add(new ItemBestSellers(R.drawable.brownshirt,"Brown Shirt","Rs.1120/-"));
-        bestSellersList.add(new ItemBestSellers(R.drawable.darkgrey,"Dark Grey","Rs.1120/-"));
-        bestSellersList.add(new ItemBestSellers(R.drawable.greenonepiece,"Green One Piece","Rs.1120/-"));
-        bestSellersList.add(new ItemBestSellers(R.drawable.lightpink,"Light Pink","Rs.1120/-"));
-        bestSellersList.add(new ItemBestSellers(R.drawable.orangewhitetops,"Orange White top","Rs.1120/-"));
-        bestSellersList.add(new ItemBestSellers(R.drawable.pinkshirt,"Pink Shirt","Rs.1120/-"));
-        bestSellersList.add(new ItemBestSellers(R.drawable.whiteshirt,"White Shirt","Rs.1120/-"));
-        bestSellersList.add(new ItemBestSellers(R.drawable.yellowtshirt,"Yellow T-Shirt","Rs.1120/-"));
+    public void setWinterSales(){
+        ApiInterface apiInterface= ApiClient.getClient().create(ApiInterface.class);
+        Call<List<Products>> call=apiInterface.getProducts(14);
+        call.enqueue(new Callback<List<Products>>() {
+            @Override
+            public void onResponse(Call<List<Products>> call, Response<List<Products>> response) {
+                winterSaleList.addAll(response.body());
+                gridAdapter.notifyDataSetChanged();
+            }
 
-        return bestSellersList;
+            @Override
+            public void onFailure(Call<List<Products>> call, Throwable t) {
+                Log.d("hello",t.toString());
+                Toast.makeText(MainActivity.this, t.toString(), Toast.LENGTH_SHORT).show();
 
-    }
-
-    public List<ItemNewArrivals> getNewArrivals(){
-        List<ItemNewArrivals> newArrivalsList=new ArrayList<>();
-           newArrivalsList.add(new ItemNewArrivals(R.drawable.ladieswear,"ladies wear"));
-           newArrivalsList.add(new ItemNewArrivals(R.drawable.womenbackpack,"women backpack"));
-           newArrivalsList.add(new ItemNewArrivals(R.drawable.leathershoes,"men Leather Shoes"));
-           newArrivalsList.add(new ItemNewArrivals(R.drawable.homeappliances,"home appliances"));
-           newArrivalsList.add(new ItemNewArrivals(R.drawable.watches,"watches"));
-        return newArrivalsList;
-
-
+            }
+        });
     }
 
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         switch (item.getItemId()){
-
-
-
-
             case R.id.home:
 //                Toast.makeText(MainActivity.this, "hello", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                            break;
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                break;
 
             case R.id.clothing:
 //                Toast.makeText(MainActivity.this, "hello", Toast.LENGTH_SHORT).show();
 
                 startActivity(new Intent(getApplicationContext(),ClothingActivity.class));
-                            break;
+                break;
 
             case R.id.footwear:
                 startActivity(new Intent(getApplicationContext(),ClothingActivity.class));
-
                 break;
 
             case R.id.bagsandwallets:
@@ -238,12 +234,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(getApplicationContext(),ClothingActivity.class));
                 break;
 
-
             case R.id.account:
-                            break;
+                break;
 
             case R.id.settings:
-                            break;
+                break;
 
 
         }
@@ -253,21 +248,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onBackPressed() {
         finish();
-    }
-
-    public void display( Call<List<Products>> call) {
-        call.enqueue(new Callback<List<Products>>() {
-            @Override
-            public void onResponse(Call<List<Products>> call, Response<List<Products>> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Products>> call, Throwable t) {
-
-            }
-
-
-        });
     }
 }

@@ -26,7 +26,7 @@ public class Products implements Serializable {
     String productThumb;
 
     @SerializedName("productImage")
-    Integer productImage;
+    String productImage;
 
     @SerializedName("productCatId")
     Integer productCatId;
@@ -80,11 +80,11 @@ public class Products implements Serializable {
         this.productThumb = productThumb;
     }
 
-    public Integer getProductImage() {
+    public String getProductImage() {
         return productImage;
     }
 
-    public void setProductImage(Integer productImage) {
+    public void setProductImage(String productImage) {
         this.productImage = productImage;
     }
 
@@ -120,7 +120,7 @@ public class Products implements Serializable {
         this.categoryId = categoryId;
     }
 
-    public Products(Integer productId, String productName, Integer productPrice, String productDesc, String productThumb, Integer productImage, Integer productCatId, Integer productStock, String categoryName, Integer categoryId) {
+    public Products(Integer productId, String productName, Integer productPrice, String productDesc, String productThumb, String productImage, Integer productCatId, Integer productStock, String categoryName, Integer categoryId) {
         this.productId = productId;
         this.productName = productName;
         this.productPrice = productPrice;

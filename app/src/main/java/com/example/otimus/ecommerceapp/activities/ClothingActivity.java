@@ -12,8 +12,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.otimus.ecommerceapp.clothingFragment.LeggingsFragment;
 import com.example.otimus.ecommerceapp.clothingFragment.PantsFragment;
-import com.example.otimus.ecommerceapp.clothingFragment.TopsFragment;
+import com.example.otimus.ecommerceapp.clothingFragment.OnePieceFragment;
 import com.example.otimus.ecommerceapp.clothingFragment.TshirtFragment;
 import com.example.otimus.ecommerceapp.R;
 
@@ -43,10 +44,10 @@ public class ClothingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_men);
+        setContentView(R.layout.activity_clothing);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Men");
+        setTitle("Clothing");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -57,16 +58,17 @@ public class ClothingActivity extends AppCompatActivity {
     }
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new TshirtFragment(), "T-Sshirts");
-        adapter.addFragment(new TopsFragment(), "Footwear");
-        adapter.addFragment(new PantsFragment(), "Bags and Wallets");
+        adapter.addFragment(new TshirtFragment(), "T-Shirts");
+        adapter.addFragment(new PantsFragment(), "Pants");
+        adapter.addFragment(new OnePieceFragment(), "One Piece");
+        adapter.addFragment(new LeggingsFragment(), "Leggings");
+
         viewPager.setAdapter(adapter);
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
-
         public ViewPagerAdapter(FragmentManager manager) {
             super(manager);
         }

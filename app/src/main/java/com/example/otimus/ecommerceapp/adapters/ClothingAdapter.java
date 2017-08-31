@@ -1,5 +1,6 @@
 package com.example.otimus.ecommerceapp.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,24 +8,29 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.otimus.ecommerceapp.models.ItemClothing;
 import com.example.otimus.ecommerceapp.R;
+import com.example.otimus.ecommerceapp.models.Products;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import static com.example.otimus.ecommerceapp.rest.ApiClient.BASE_URL;
 
 /**
  * Created by Otimus on 10/18/2016.
  */
 public class ClothingAdapter extends RecyclerView.Adapter<ClothingAdapter.ClothingViewHolder>{
-        List<ItemClothing> clothingList;
+        List<Products> clothingList;
     private final OnItemClickListener listener;
+    Context context;
     public interface OnItemClickListener {
-        void onItemClick(ItemClothing item);
+        void onItemClick(Products item);
     }
 
-    public ClothingAdapter(List<ItemClothing> clothingList, OnItemClickListener listener) {
+    public ClothingAdapter(List<Products> clothingList, OnItemClickListener listener,Context context) {
         this.listener=listener;
         this.clothingList = clothingList;
+        this.context=context;
     }
 
     @Override
@@ -37,10 +43,12 @@ public class ClothingAdapter extends RecyclerView.Adapter<ClothingAdapter.Clothi
     @Override
     public void onBindViewHolder(ClothingAdapter.ClothingViewHolder holder, int position) {
         holder.bind(clothingList.get(position),listener);
-        final ItemClothing clothing =clothingList.get(position);
-        holder.clothing_image.setImageResource(clothing.getClothing_image());
-        holder.clothing_name.setText(clothing.getClothing_name());
-        holder.clothing_price.setText(clothing.getClothing_price());
+        final Products products =clothingList.get(position);
+        Picasso.with(context).load(BASE_URL+"images/"+products.getProductImage()).into(holder.clothing_image);
+
+//        holder.clothing_image.setImageResource(clothing.getClothing_image());
+        holder.clothing_name.setText(products.getProductName());
+        holder.clothing_price.setText(toString().valueOf(products.getProductPrice()));
 
     }
 
@@ -61,7 +69,7 @@ public class ClothingAdapter extends RecyclerView.Adapter<ClothingAdapter.Clothi
 
 
         }
-        public void bind(final ItemClothing item, final OnItemClickListener listener) {
+        public void bind(final Products item, final OnItemClickListener listener) {
 //
 
             itemView.setOnClickListener(new View.OnClickListener() {

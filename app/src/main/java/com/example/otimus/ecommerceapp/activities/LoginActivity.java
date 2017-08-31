@@ -71,8 +71,17 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+   }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

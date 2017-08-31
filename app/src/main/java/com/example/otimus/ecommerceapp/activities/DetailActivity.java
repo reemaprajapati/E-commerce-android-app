@@ -14,11 +14,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.otimus.ecommerceapp.models.ItemClothing;
 import com.example.otimus.ecommerceapp.R;
+import com.example.otimus.ecommerceapp.models.Products;
+import com.squareup.picasso.Picasso;
+
+import static com.example.otimus.ecommerceapp.rest.ApiClient.BASE_URL;
 
 public class DetailActivity extends AppCompatActivity {
     CoordinatorLayout coordinatorLayout;
+    TextView detail_name, detail_price,detail_description;
+    ImageView detail_image;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -47,19 +53,20 @@ public class DetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        ItemClothing itemClothing = (ItemClothing) intent.getSerializableExtra("data");
-        Log.d("data", itemClothing.getClothing_name());
+        Products products = (Products) intent.getSerializableExtra("data");
+        Log.d("data", products.getProductName());
 
-        TextView detail_name, detail_price;
-        ImageView detail_image;
 
         detail_name=(TextView)findViewById(R.id.detail_name);
         detail_price=(TextView)findViewById(R.id.detail_price);
         detail_image=(ImageView) findViewById(R.id.detail_image);
+        detail_description=(TextView)findViewById(R.id.detail_description) ;
 
-        detail_name.setText(itemClothing.getClothing_name());
-        detail_price.setText(itemClothing.getClothing_price());
-        detail_image.setImageResource(itemClothing.getClothing_image());
+        detail_name.setText(products.getProductName());
+        detail_price.setText(toString().valueOf((products.getProductPrice())));
+        Picasso.with(this).load(BASE_URL+"images/"+products.getProductImage()).into(detail_image);
+        detail_description.setText(products.getProductDesc());
+
 
         coordinatorLayout=(CoordinatorLayout)findViewById(R.id.coordinatorlayout);
 

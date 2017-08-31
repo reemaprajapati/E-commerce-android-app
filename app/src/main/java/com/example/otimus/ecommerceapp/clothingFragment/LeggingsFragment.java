@@ -27,30 +27,30 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PantsFragment extends Fragment {
-     List<Products> clothingList;
+public class LeggingsFragment extends Fragment {
+  List<Products> clothingList;
      ClothingAdapter clothingAdapter;
 
-    public PantsFragment() {
+    public LeggingsFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView= inflater.inflate(R.layout.fragment_pants, container, false);
+        View rootView= inflater.inflate(R.layout.fragment_leggings, container, false);
 
-        RecyclerView recyclerView=(RecyclerView)rootView.findViewById(R.id.rec_pants);
+        RecyclerView recyclerView=(RecyclerView)rootView.findViewById(R.id.rec_leggings);
         recyclerView.setHasFixedSize(true);
         GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(),2);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        clothingList=new ArrayList<>();
+       clothingList=new ArrayList<>();
 //        clothingList=getList();
 
         clothingAdapter =new ClothingAdapter(clothingList, new ClothingAdapter.OnItemClickListener() {
@@ -64,7 +64,7 @@ public class PantsFragment extends Fragment {
         recyclerView.setAdapter(clothingAdapter);
 
         ApiInterface apiInterface= ApiClient.getClient().create(ApiInterface.class);
-        Call<List<Products>> call=apiInterface.getProducts(11);
+        Call<List<Products>> call=apiInterface.getProducts(13);
         call.enqueue(new Callback<List<Products>>() {
             @Override
             public void onResponse(Call<List<Products>> call, Response<List<Products>> response) {
@@ -79,22 +79,6 @@ public class PantsFragment extends Fragment {
 
             }
         });
-        return rootView;
-    }
-
-//    private List<ItemClothing> getList(){
-//        List<ItemClothing> clothingsList=new ArrayList<>();
-//        clothingsList.add(new ItemClothing(R.drawable.bagsand1,"Brown Leather","Rs.1120/-"));
-//        clothingsList.add(new ItemClothing(R.drawable.bagsand2,"Gray Backpack","Rs.1120/-"));
-//        clothingsList.add(new ItemClothing(R.drawable.bagsand3,"Maroon Wallet","Rs.1120/-"));
-//        clothingsList.add(new ItemClothing(R.drawable.bagsand4," Grop Wallet","Rs.1120/-"));
-//        clothingsList.add(new ItemClothing(R.drawable.bagsand5,"Jute Backpack","Rs.1120/-"));
-//        clothingsList.add(new ItemClothing(R.drawable.bagsand6,"Laptop Bag","Rs.1120/-"));
-//        clothingsList.add(new ItemClothing(R.drawable.bagsand7,"Check Wallet","Rs.1120/-"));
-//
-//
-//        return clothingsList;
-//    }
-
+        return rootView;    }
 
 }

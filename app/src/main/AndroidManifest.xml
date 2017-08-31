@@ -17,11 +17,6 @@
         <activity android:name=".activities.MainActivity">
 
         </activity>
-        <activity android:name=".activities.LadiesWearActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
-        </activity>
         <activity
             android:name=".activities.ClothingActivity"
             android:theme="@style/MyMaterialTheme">

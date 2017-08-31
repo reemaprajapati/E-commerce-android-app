@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".clothingFragment.TopsFragment">
+    tools:context=".clothingFragment.LeggingsFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -10,10 +10,11 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rec_accessories"
+            android:id="@+id/rec_leggings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
+
 </FrameLayout>
