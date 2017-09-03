@@ -66,12 +66,8 @@ public class ClothingAdapter extends RecyclerView.Adapter<ClothingAdapter.Clothi
             clothing_name=(TextView)itemView.findViewById(R.id.clothing_name);
             clothing_price=(TextView)itemView.findViewById(R.id.clothing_price);
             clothing_image=(ImageView) itemView.findViewById(R.id.clothing_image);
-
-
         }
         public void bind(final Products item, final OnItemClickListener listener) {
-//
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     listener.onItemClick(item);

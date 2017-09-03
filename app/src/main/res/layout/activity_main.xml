@@ -22,120 +22,128 @@
 
     </android.support.v7.widget.Toolbar>
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#EEE">
-
-        <ImageView
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:src="@drawable/wintersale"
-            android:scaleType="fitXY"
-            android:elevation="5dp"
-            />
-        <SearchView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
-            android:layout_margin="12dp"
-            android:queryHint="@string/searchHint"
-            android:elevation="5dp"
-            android:clipToPadding="false"
-            android:outlineProvider="bounds"
+            android:layout_height="match_parent">
 
-            >
-
-        </SearchView>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@string/newarrivals"
-            android:textAllCaps="true"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:textColor="@color/lightBlack"
-            />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rec_newarrivals"
+                <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:background="#EEE">
 
-                </android.support.v7.widget.RecyclerView>
-            </LinearLayout>
-        </HorizontalScrollView>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:src="@drawable/wintersale"
+                            android:scaleType="fitXY"
+                            android:elevation="5dp"
+                            />
+                        <SearchView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorWhite"
+                            android:layout_margin="12dp"
+                            android:queryHint="@string/searchHint"
+                            android:elevation="5dp"
+                            android:clipToPadding="false"
+                            android:outlineProvider="bounds"
 
+                            >
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@string/bestsellers"
-            android:textAllCaps="true"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:textColor="@color/lightBlack"/>
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                        </SearchView>
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rec_bestsellers"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="@string/newarrivals"
+                            android:textAllCaps="true"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:textSize="15dp"
+                            android:textColor="@color/colorPrimaryDark"
+                            />
 
-                </android.support.v7.widget.RecyclerView>
-            </LinearLayout>
-        </HorizontalScrollView>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@string/wintersale"
-            android:textAllCaps="true"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:textColor="@color/lightBlack"/>
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                        <HorizontalScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rec_wintersale"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/rec_newarrivals"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
 
-                </android.support.v7.widget.RecyclerView>
-            </LinearLayout>
-        </HorizontalScrollView>
+                                </android.support.v7.widget.RecyclerView>
+                            </LinearLayout>
+                        </HorizontalScrollView>
 
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="@string/bestsellers"
+                            android:textAllCaps="true"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:textSize="15dp"
+                            android:textColor="@color/colorPrimaryDark"
+                            />
+                        <HorizontalScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
 
-    </LinearLayout>
-</ScrollView>
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/rec_bestsellers"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                </android.support.v7.widget.RecyclerView>
+                            </LinearLayout>
+                        </HorizontalScrollView>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="@string/wintersale"
+                            android:textAllCaps="true"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:textSize="15dp"
+                            android:textColor="@color/colorPrimaryDark"
+                            />
+                        <HorizontalScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/rec_wintersale"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                </android.support.v7.widget.RecyclerView>
+                            </LinearLayout>
+                        </HorizontalScrollView>
+
+
+
+                    </LinearLayout>
+                </ScrollView>
+        </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation"
@@ -148,11 +156,7 @@
         app:menu="@menu/navigation_menu"
         android:fitsSystemWindows="true"
         app:theme="@style/NavigationDrawerStyle"
-
-
-        />
-
-    
+  />
     </android.support.v4.widget.DrawerLayout>
 
 

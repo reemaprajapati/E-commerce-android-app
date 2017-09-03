@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     List<Products> newArrivalsList,bestSellersList,winterSaleList;
     RecyclerView recNewArrivals;
     GridAdapter gridAdapter;
+    SwipeRefreshLayout swipeRefreshLayout;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -79,6 +82,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         };
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
+        swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         //recyclerview for new arrivals
         recNewArrivals =(RecyclerView)findViewById(R.id.rec_newarrivals);
@@ -167,7 +180,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 gridAdapter.notifyDataSetChanged();
                 Log.d("newarrivals",bestSellersList.get(1).getProductName());
             }
-
             @Override
             public void onFailure(Call<List<Products>> call, Throwable t) {
                 Log.d("hi",t.toString());
@@ -186,7 +198,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 winterSaleList.addAll(response.body());
                 gridAdapter.notifyDataSetChanged();
             }
-
             @Override
             public void onFailure(Call<List<Products>> call, Throwable t) {
                 Log.d("hello",t.toString());
@@ -195,7 +206,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
-
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -212,26 +222,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.footwear:
-                startActivity(new Intent(getApplicationContext(),ClothingActivity.class));
+                startActivity(new Intent(getApplicationContext(),FootWearActivity.class));
                 break;
 
             case R.id.bagsandwallets:
-                startActivity(new Intent(getApplicationContext(),ClothingActivity.class));
+                startActivity(new Intent(getApplicationContext(),BagsAndWallet.class));
                 break;
 
             case R.id.jewellery:
-                startActivity(new Intent(getApplicationContext(),ClothingActivity.class));
+                startActivity(new Intent(getApplicationContext(),JewelleriesActivity.class));
                 break;
 
             case R.id.beautycare:
-                startActivity(new Intent(getApplicationContext(),ClothingActivity.class));
+                startActivity(new Intent(getApplicationContext(),BeautyCareActivity.class));
                 break;
 
             case R.id.accessories:
+                startActivity(new Intent(getApplicationContext(),AccessoriesActivity.class));
+
                 break;
 
             case R.id.womensgrooming:
-                startActivity(new Intent(getApplicationContext(),ClothingActivity.class));
+                startActivity(new Intent(getApplicationContext(),WomensGroomingActivity.class));
                 break;
 
             case R.id.account:
@@ -239,8 +251,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.settings:
                 break;
-
-
         }
         return false;
     }

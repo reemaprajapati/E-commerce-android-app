@@ -23,7 +23,7 @@
 
     <item
         android:id="@+id/bagsandwallets"
-        android:title="Bags and Wallet">
+        android:title="Bags and Purses">
     </item>
 
     <item
