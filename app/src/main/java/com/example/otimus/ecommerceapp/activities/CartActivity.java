@@ -1,6 +1,7 @@
 package com.example.otimus.ecommerceapp.activities;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -8,36 +9,36 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.otimus.ecommerceapp.AppModule;
+import com.example.otimus.ecommerceapp.EcommerceApp;
 import com.example.otimus.ecommerceapp.R;
+import com.example.otimus.ecommerceapp.adapters.CartAdapter;
+import com.example.otimus.ecommerceapp.databinding.ActivityCartBinding;
 import com.example.otimus.ecommerceapp.models.Products;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartActivity extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity implements CartAdapter.OnItemClickListener  {
 
-    List<Products> cartlist;
-    RecyclerView recyclerView;
-
+    ActivityCartBinding binding;
+    AppModule component;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_staticcart);
-        /*
-        TODO : add activity_cart.xml
-
-
-         */
-        Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar_cart);
-        setSupportActionBar(toolbar);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_cart);
+        setSupportActionBar(binding.toolbarCart1);
         setTitle("Your Cart");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Button button=(Button)findViewById(R.id.btn_proceed);
-        button.setOnClickListener(new View.OnClickListener() {
+
+
+        component = EcommerceApp.component(this);
+
+        binding.btnProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),CheckOutActivity.class));
+                startActivity(new Intent(getApplicationContext(), CheckOutActivity.class));
             }
         });
 
@@ -48,14 +49,20 @@ public class CartActivity extends AppCompatActivity {
 //        recyclerView.setLayoutManager(gridLayoutManager);
 //        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        cartlist  =new ArrayList<>();
-        /*
-            TODO : add items to cart
-         */
 
+        showCartItems();
 
 
     }
 
 
+    public void showCartItems() {
+        List<Products> cartItems = component.provideData().getCartItems();
+        binding.cartRecV.setAdapter(new CartAdapter(cartItems, this, this));
+    }
+
+    @Override
+    public void onItemClick(Products item) {
+
+    }
 }

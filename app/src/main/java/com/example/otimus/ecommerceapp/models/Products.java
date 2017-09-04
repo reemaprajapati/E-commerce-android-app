@@ -4,12 +4,16 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by Otimus on 8/29/2017.
  */
 
-public class Products implements Serializable {
+public class Products  extends RealmObject implements Serializable {
 
+    @PrimaryKey
     @SerializedName("productId")
     Integer productId;
 
@@ -120,7 +124,7 @@ public class Products implements Serializable {
         this.categoryId = categoryId;
     }
 
-    public Products(Integer productId, String productName, Integer productPrice, String productDesc, String productThumb, String productImage, Integer productCatId, Integer productStock, String categoryName, Integer categoryId) {
+  /*  public Products(Integer productId, String productName, Integer productPrice, String productDesc, String productThumb, String productImage, Integer productCatId, Integer productStock, String categoryName, Integer categoryId) {
         this.productId = productId;
         this.productName = productName;
         this.productPrice = productPrice;
@@ -131,5 +135,5 @@ public class Products implements Serializable {
         this.productStock = productStock;
         this.categoryName = categoryName;
         this.categoryId = categoryId;
-    }
+    }*/
 }
