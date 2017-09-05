@@ -19,7 +19,7 @@ import com.example.otimus.ecommerceapp.models.Products;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartActivity extends AppCompatActivity implements CartAdapter.OnItemClickListener  {
+public class CartActivity extends AppCompatActivity implements CartAdapter.OnItemClickListener {
 
     ActivityCartBinding binding;
     AppModule component;
@@ -59,10 +59,25 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnIte
     public void showCartItems() {
         List<Products> cartItems = component.provideData().getCartItems();
         binding.cartRecV.setAdapter(new CartAdapter(cartItems, this, this));
+        showTotalAmount(cartItems);
+
     }
 
     @Override
     public void onItemClick(Products item) {
 
+    }
+
+    @Override
+    public void onQuantityChanged(List<Products> cartList) {
+        showTotalAmount(cartList);
+    }
+
+    private  void showTotalAmount(List<Products> cartList){
+        float totalAmt = 0;
+        for (int i = 0; i < cartList.size(); i++) {
+            totalAmt += cartList.get(i).getProductPrice() * cartList.get(i).getQuantity();
+        }
+        binding.tvTotal.setText("TOTAL RS. " + totalAmt + "/-");
     }
 }

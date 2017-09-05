@@ -44,6 +44,9 @@ public class Products  extends RealmObject implements Serializable {
     @SerializedName("categoryId")
     Integer categoryId;
 
+    @SerializedName("quantity")
+    int quantity = 1;
+
     public Integer getProductId() {
         return productId;
     }
@@ -124,7 +127,15 @@ public class Products  extends RealmObject implements Serializable {
         this.categoryId = categoryId;
     }
 
-  /*  public Products(Integer productId, String productName, Integer productPrice, String productDesc, String productThumb, String productImage, Integer productCatId, Integer productStock, String categoryName, Integer categoryId) {
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    /*  public Products(Integer productId, String productName, Integer productPrice, String productDesc, String productThumb, String productImage, Integer productCatId, Integer productStock, String categoryName, Integer categoryId) {
         this.productId = productId;
         this.productName = productName;
         this.productPrice = productPrice;

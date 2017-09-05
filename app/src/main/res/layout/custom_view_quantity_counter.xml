@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="@dimen/padding_extra_small"
+        >
+
+        <Button
+            android:id="@+id/btnInc"
+            android:layout_width="@dimen/quantity_counter_button_size"
+            android:layout_height="@dimen/quantity_counter_button_size"
+            android:layout_gravity="center"
+            android:background="@drawable/up"
+            />
+    </FrameLayout>
+
+
+
+    <TextView
+        android:id="@+id/etQuantity"
+        android:layout_width="@dimen/quantity_counter_edit_text_size"
+        android:layout_height="@dimen/quantity_counter_edit_text_size"
+        android:layout_gravity="center"
+        android:background="@android:drawable/editbox_background"
+        android:focusable="false"
+        android:gravity="center"
+        android:maxLength="4"
+        android:padding="@dimen/padding_small" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="@dimen/padding_extra_small"
+        >
+
+        <Button
+            android:id="@+id/btnDec"
+            android:layout_width="@dimen/quantity_counter_button_size"
+            android:layout_height="@dimen/quantity_counter_button_size"
+            android:layout_gravity="center"
+            android:background="@drawable/down"
+            />
+    </FrameLayout>
+
+
+</LinearLayout>

@@ -6,4 +6,8 @@
     <dimen name="tab_padding_bottom">18dp</dimen>
     <dimen name="tab_label">16sp</dimen>
     <dimen name="custom_tab_layout_height">72dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="quantity_counter_button_size">32dp</dimen>
+    <dimen name="quantity_counter_edit_text_size">38dp</dimen>
+    <dimen name="padding_extra_small">4dp</dimen>
 </resources>
