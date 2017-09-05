@@ -26,7 +26,6 @@ public class CartDao {
 
     public void save(final List<Products> products) {
         mRealm.executeTransaction(realm -> {
-            realm.delete(Products.class);
             realm.copyToRealmOrUpdate(products);
         });
     }

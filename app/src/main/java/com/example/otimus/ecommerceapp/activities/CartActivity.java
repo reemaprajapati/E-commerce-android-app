@@ -70,6 +70,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnIte
 
     @Override
     public void onQuantityChanged(List<Products> cartList) {
+        component.provideData().updateCartItems(cartList);
         showTotalAmount(cartList);
     }
 

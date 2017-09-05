@@ -30,4 +30,8 @@ public class LocalRepo {
     public List<Products> getCartItems() {
         return cartDao.getCartItems();
     }
+
+    public void updateCartItems(List<Products> cartList) {
+        cartDao.save(cartList);
+    }
 }

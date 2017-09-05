@@ -40,6 +40,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         Picasso.with(context).load(BASE_URL + "images/" + cartList.get(position).getProductImage())
                 .into(holder.productImage);
 
+        holder.quantityCounter.setQuantity(cartList.get(position).getQuantity());
         holder.quantityCounter.setQuantityChangeListener(newQuantity -> {
             cartList.get(holder.getAdapterPosition()).setQuantity(newQuantity);
             listener.onQuantityChanged(cartList);

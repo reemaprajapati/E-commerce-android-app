@@ -32,4 +32,8 @@ public class AppData {
     public List<Products> getCartItems() {
         return localRepo.getCartItems();
     }
+
+    public void updateCartItems(List<Products> cartList) {
+        localRepo.updateCartItems(cartList);
+    }
 }
