@@ -12,8 +12,6 @@ import io.realm.RealmConfiguration;
 
 public class EcommerceApp extends Application {
 
-
-
     @Override
     public void onCreate() {
         super.onCreate();

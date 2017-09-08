@@ -36,7 +36,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     @Override
     public void onBindViewHolder(CartAdapter.CartViewHolder holder, int position) {
         holder.productName.setText(cartList.get(position).getProductName());
-        holder.productPrice.setText("Rs. "+String.valueOf(cartList.get(position).getProductPrice()));
+        holder.productPrice.setText("$ "+String.valueOf(cartList.get(position).getProductPrice()));
         Picasso.with(context).load(BASE_URL + "images/" + cartList.get(position).getProductImage())
                 .into(holder.productImage);
 

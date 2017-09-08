@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="6dp">
 
     <RelativeLayout
+        android:layout_gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -13,31 +15,38 @@
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:adjustViewBounds="true"
-            android:src="@drawable/bag" />
+            android:src="@drawable/bag"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp" />
 
         <TextView
+            android:maxLines="2"
+            android:layout_gravity="center"
             android:id="@+id/tvc_productName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/ivc_imageIcon"
-            android:layout_toRightOf="@+id/ivc_imageIcon"
             android:lines="2"
             android:text="@string/backpack"
             android:textColor="@color/colorBlack"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_above="@+id/tvc_productPrice"
+            android:layout_toLeftOf="@+id/quantityCounter"
+            android:layout_toRightOf="@+id/ivc_imageIcon"
+            android:layout_toEndOf="@+id/ivc_imageIcon" />
 
         <TextView
+            android:gravity="center"
             android:id="@+id/tvc_productPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvc_productName"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="7dp"
-            android:layout_toEndOf="@+id/ivc_imageIcon"
-            android:layout_toRightOf="@+id/ivc_imageIcon"
             android:text="@string/price"
-            android:textColor="@color/lightBlack" />
+            android:textColor="@color/lightBlack"
+            android:layout_alignBottom="@+id/ivc_imageIcon"
+            android:layout_alignLeft="@+id/tvc_productName"
+            android:layout_alignStart="@+id/tvc_productName" />
 
         <!-- <TextView
              android:id="@+id/tv_quantity"
@@ -74,10 +83,20 @@
             android:id="@+id/quantityCounter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvc_productName"
             android:padding="@dimen/padding_small"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/imageButton"
+            android:layout_toStartOf="@+id/imageButton" />
+
+        <ImageButton
+            android:background="@color/colorWhite"
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/ic_cancel_black_24dp" />
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

@@ -19,7 +19,7 @@
             android:id="@+id/clothing_image"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:src="@drawable/footwear3"
+            android:src="@drawable/bag"
             android:scaleType="fitCenter"
             android:layout_margin="6dp"
             />

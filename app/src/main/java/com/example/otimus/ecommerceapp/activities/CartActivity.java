@@ -4,10 +4,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 
 import com.example.otimus.ecommerceapp.AppModule;
 import com.example.otimus.ecommerceapp.EcommerceApp;
@@ -16,7 +13,6 @@ import com.example.otimus.ecommerceapp.adapters.CartAdapter;
 import com.example.otimus.ecommerceapp.databinding.ActivityCartBinding;
 import com.example.otimus.ecommerceapp.models.Products;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CartActivity extends AppCompatActivity implements CartAdapter.OnItemClickListener {
@@ -79,6 +75,6 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnIte
         for (int i = 0; i < cartList.size(); i++) {
             totalAmt += cartList.get(i).getProductPrice() * cartList.get(i).getQuantity();
         }
-        binding.tvTotal.setText("TOTAL RS. " + totalAmt + "/-");
+        binding.tvTotal.setText("TOTAL $ " + totalAmt + "/-");
     }
 }

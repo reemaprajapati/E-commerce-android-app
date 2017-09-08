@@ -45,7 +45,7 @@
                             android:id="@+id/detail_image"
                             android:layout_width="match_parent"
                             android:layout_height="320dp"
-                            android:src="@drawable/huaweigr3"
+                            android:src="@drawable/bag"
                             android:scaleType="fitCenter"
                             android:contentDescription="image" />
                         <TextView
