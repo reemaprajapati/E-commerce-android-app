@@ -36,4 +36,8 @@ public class AppData {
     public void updateCartItems(List<Products> cartList) {
         localRepo.updateCartItems(cartList);
     }
+
+    public void deleteCartItem(Products product) {
+        localRepo.deleteCartItem(product);
+    }
 }

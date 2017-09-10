@@ -37,4 +37,8 @@ public class AppModule {
     public AppData provideData() {
         return new AppData(localRepo, remoteRepo);
     }
+
+    public Context provideContext() {
+        return app;
+    }
 }

@@ -70,6 +70,15 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnIte
         showTotalAmount(cartList);
     }
 
+    @Override
+    public void onDeleteItem(Products product) {
+        component.provideData().deleteCartItem(product);
+        List<Products> cartItems = component.provideData().getCartItems();
+        showTotalAmount(cartItems);
+
+
+    }
+
     private  void showTotalAmount(List<Products> cartList){
         float totalAmt = 0;
         for (int i = 0; i < cartList.size(); i++) {

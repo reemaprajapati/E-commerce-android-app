@@ -85,12 +85,12 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_small"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/imageButton"
-            android:layout_toStartOf="@+id/imageButton" />
+            android:layout_toLeftOf="@+id/btDelete"
+            android:layout_toStartOf="@+id/btDelete" />
 
         <ImageButton
             android:background="@color/colorWhite"
-            android:id="@+id/imageButton"
+            android:id="@+id/btDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

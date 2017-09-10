@@ -10,7 +10,8 @@ public class ApiClient {
 
 
 //    public static final String BASE_URL="http://172.18.13.106/onlineshop/";
-    public static final String BASE_URL="http://192.168.1.13/onlineshop/";
+    public static final String BASE_URL="http://192.168.10.6/onlineshop/";
+//    public static final String BASE_URL="http://192.168.1.13/onlineshop/";
 
     private static Retrofit retrofit=null;
 

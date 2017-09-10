@@ -10,10 +10,23 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.otimus.ecommerceapp.AppModule;
 import com.example.otimus.ecommerceapp.R;
 import com.example.otimus.ecommerceapp.models.Login;
 import com.example.otimus.ecommerceapp.rest.ApiClient;
 import com.example.otimus.ecommerceapp.rest.ApiInterface;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+
+import org.json.JSONException;
+
+import java.util.Arrays;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,6 +39,10 @@ public class LoginActivity extends AppCompatActivity {
     TextView tv_register;
     String username;
     String password;
+    Button btFacebook;
+
+    AppModule component;
+    private  CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         et_password= (EditText) findViewById(R.id.et_password);
         btn_login= (Button) findViewById(R.id.btn_signin);
         tv_register= (TextView) findViewById(R.id.tv_register);
+        btFacebook= (Button) findViewById(R.id.btFacebook);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,12 +88,73 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        instantiateFbLogin();
+        btFacebook.setOnClickListener(view -> {
+            loginWithFb();
+        });
+        
+
    }
+
+    private void loginWithFb() {
+        LoginManager.getInstance()
+                .logInWithReadPermissions(this, Arrays.asList("public_profile", "email"));
+    }
+
+
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void instantiateFbLogin() {
+        FacebookSdk.sdkInitialize(getApplicationContext());
+
+        this.callbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(callbackManager, onFbLogin());
+    }
+
+    private FacebookCallback<LoginResult> onFbLogin() {
+        return new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+
+                final String facebookId = loginResult.getAccessToken().getUserId();
+                GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(),
+                        (data, response) -> {
+
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,first_name,last_name,email,gender,picture.type(large)");
+                graphRequest.setParameters(parameters);
+                graphRequest.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(LoginActivity.this, "Login Canceled", Toast.LENGTH_LONG).show();
+
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                Toast.makeText(LoginActivity.this, "Login Error", Toast.LENGTH_LONG).show();
+
+            }
+        };
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
     @Override
     protected void onPause() {
         super.onPause();
-        finish();
     }
 
     @Override

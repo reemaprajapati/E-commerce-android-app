@@ -33,4 +33,9 @@
     <string name="create">Not registered? Click Here</string>
     <string name="username">Username</string>
     <string name="max_product_quantity_limit_reached">Maximum product limit reached</string>
+    <string name="login_with_facebook">Login with Facebook</string>
+
+    <string name="facebook_app_id">1236794736425851</string>
+    <string name="fb_login_protocol_scheme">fb1236794736425851</string>
+
 </resources>

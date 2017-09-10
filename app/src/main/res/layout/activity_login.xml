@@ -56,4 +56,14 @@
         android:layout_height="wrap_content"
         />
 
+    <Button
+        android:id="@+id/btFacebook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:background="@drawable/button_fb_selector"
+        android:gravity="center"
+        android:textColor="@color/colorWhite"
+        android:text="@string/login_with_facebook"/>
+
 </LinearLayout>

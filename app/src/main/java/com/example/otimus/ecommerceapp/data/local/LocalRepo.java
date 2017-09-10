@@ -34,4 +34,8 @@ public class LocalRepo {
     public void updateCartItems(List<Products> cartList) {
         cartDao.save(cartList);
     }
+
+    public void deleteCartItem(Products product) {
+        cartDao.deleteProduct(product.getProductId());
+    }
 }

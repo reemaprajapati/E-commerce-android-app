@@ -5,9 +5,11 @@ import android.util.Log;
 
 import com.example.otimus.ecommerceapp.models.Products;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by brain on 6/21/17.
@@ -46,12 +48,13 @@ public class CartDao {
     }
 
     public void deleteProduct(int productId) {
-      /*  Realm realm1 = Realm.getDefaultInstance();
+        Realm realm1 = Realm.getDefaultInstance();
         Log.e("delete thread::", Thread.currentThread().getName());
         realm1.executeTransaction(realm -> {
-            realm.delete(Products.class);
+            Products product = realm.where(Products.class).equalTo("productId", productId).findFirst();
+            product.deleteFromRealm();
         });
-        realm1.close();*/
+        realm1.close();
 
     }
 }

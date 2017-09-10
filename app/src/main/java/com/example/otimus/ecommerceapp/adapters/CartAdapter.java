@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,7 +37,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     @Override
     public void onBindViewHolder(CartAdapter.CartViewHolder holder, int position) {
         holder.productName.setText(cartList.get(position).getProductName());
-        holder.productPrice.setText("$ "+String.valueOf(cartList.get(position).getProductPrice()));
+        holder.productPrice.setText("$ " + String.valueOf(cartList.get(position).getProductPrice()));
         Picasso.with(context).load(BASE_URL + "images/" + cartList.get(position).getProductImage())
                 .into(holder.productImage);
 
@@ -45,6 +46,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             cartList.get(holder.getAdapterPosition()).setQuantity(newQuantity);
             listener.onQuantityChanged(cartList);
         });
+
+        holder.btDelete.setOnClickListener(view -> {
+                    listener.onDeleteItem(cartList.get(holder.getAdapterPosition()));
+                    cartList.remove(holder.getAdapterPosition());
+                    notifyDataSetChanged();
+                }
+        );
 
     }
 
@@ -57,6 +65,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         void onItemClick(Products item);
 
         void onQuantityChanged(List<Products> cartList);
+
+        void onDeleteItem(Products products);
     }
 
     public CartAdapter(List<Products> cartList, OnItemClickListener listener, Context context) {
@@ -68,6 +78,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public class CartViewHolder extends RecyclerView.ViewHolder {
         TextView productName, productPrice, productQuantity;
         ImageView productImage;
+        ImageButton btDelete;
         QuantityCounter quantityCounter;
 
         public CartViewHolder(View itemView) {
@@ -76,6 +87,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             productPrice = (TextView) itemView.findViewById(R.id.tvc_productPrice);
             quantityCounter = (QuantityCounter) itemView.findViewById(R.id.quantityCounter);
             productImage = (ImageView) itemView.findViewById(R.id.ivc_imageIcon);
+            btDelete = (ImageButton) itemView.findViewById(R.id.btDelete);
         }
 
     }
